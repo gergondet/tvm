@@ -116,6 +116,7 @@ set(TVM_HEADERS
   ${TVM_INCLUDE_DIR}/function/abstract/Function.h
   ${TVM_INCLUDE_DIR}/function/abstract/LinearFunction.h
   ${TVM_INCLUDE_DIR}/function/BasicLinearFunction.h
+  ${TVM_INCLUDE_DIR}/function/Difference.h
   ${TVM_INCLUDE_DIR}/function/IdentityFunction.h
 
   ${TVM_INCLUDE_DIR}/geometry/Plane.h
