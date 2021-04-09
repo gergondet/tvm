@@ -65,6 +65,7 @@ void LinearizedControlProblem::remove(TaskWithRequirements * tr)
   {
     return;
   }
+  substitutions_.remove(it->second.constraint);
   updater_.removeInput(it->second.constraint.get());
   constraints_.erase(it);
 }
