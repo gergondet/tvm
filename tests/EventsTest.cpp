@@ -162,15 +162,15 @@ TEST_CASE("Add/Remove constraint with substitutions")
 
   LinearizedControlProblem pb;
 
-  auto t1 = pb.add(x - y_xy == 0., {PriorityLevel(1)});
+  auto t1 = pb.add(x - y_xy == 0., {PriorityLevel(0)});
   auto t2 = pb.add(y == Vector3d(1, 2, 3), {PriorityLevel(1)});
 
   scheme::WeightedLeastSquares solver(solver::DefaultLSSolverOptions{});
 
   solver.solve(pb);
-  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(1, 2)));
-  FAST_CHECK_UNARY(y_xy->value().isApprox(Vector2d(1, 2)));
-  FAST_CHECK_UNARY(y->value().isApprox(Vector3d(1, 2, 3)));
+  FAST_CHECK_UNARY(x->value().isApprox(Vector2d(1, 2), 1e-4));
+  FAST_CHECK_UNARY(y_xy->value().isApprox(Vector2d(1, 2), 1e-4));
+  FAST_CHECK_UNARY(y->value().isApprox(Vector3d(1, 2, 3), 1e-4));
 
   pb.remove(t1.get());
   FAST_CHECK_UNARY(!pb.variables().contains(*x));

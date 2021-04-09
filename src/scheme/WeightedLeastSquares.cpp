@@ -259,10 +259,6 @@ void WeightedLeastSquares::removeTask(const LinearizedControlProblem & problem,
   const auto & c = optc->get();
   const auto & subs = problem.substitutions();
 
-  if(subs.uses(c.constraint))
-    throw std::runtime_error(
-        "[WeightedLeastSquares::removeTask]: You cannot remove a constraint used for a substitution.");
-
   for(const auto & xi : c.constraint->variables())
   {
     auto s = subs.substitute(xi);
@@ -272,6 +268,8 @@ void WeightedLeastSquares::removeTask(const LinearizedControlProblem & problem,
         se.removeVariable(si);
     }
   }
+  auto & hack = const_cast<hint::internal::Substitutions &>(subs);
+  hack.remove(c.constraint);
 
   int p = task->requirements.priorityLevel().value();
   if((p == 0) && canBeUsedAsBound(c.constraint, subs, constraint::Type::DOUBLE_SIDED))
